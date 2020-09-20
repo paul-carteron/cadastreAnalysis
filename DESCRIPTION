@@ -14,8 +14,8 @@ Imports:
     R.utils,
     nngeo,
     sf,
-    here
-Depends: 
-    tidyverse
+    here,
+    readxl,
+    dplyr
 URL: https://github.com/paul-carteron/cadastreAnalysis
 BugReports: https://github.com/paul-carteron/cadastreAnalysis/issues

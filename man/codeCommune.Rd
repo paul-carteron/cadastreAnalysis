@@ -6,9 +6,6 @@
 \usage{
 codeCommune()
 }
-\arguments{
-\item{path}{Adresse où se trouve le fichier d'entrees parcCad.xlsx}
-}
 \value{
 Les codes communes associés aux parcellaires
 }

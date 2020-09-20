@@ -3,7 +3,7 @@
 #' @return Les codes communes associés aux parcellaires
 #' @export
 #'
-#' @import tidyverse here
+#' @import dplyr here
 #'
 #' @examples
 #'
