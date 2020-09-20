@@ -4,7 +4,7 @@
 \alias{codeCommune}
 \title{codeCommune}
 \usage{
-codeCommune(path)
+codeCommune()
 }
 \arguments{
 \item{path}{Adresse où se trouve le fichier d'entrees parcCad.xlsx}
@@ -14,4 +14,7 @@ Les codes communes associés aux parcellaires
 }
 \description{
 codeCommune
+}
+\examples{
+
 }

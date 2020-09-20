@@ -13,7 +13,8 @@ Imports:
     rmapshaper,
     R.utils,
     nngeo,
-    sf
+    sf,
+    here
 Depends: 
     tidyverse
 URL: https://github.com/paul-carteron/cadastreAnalysis

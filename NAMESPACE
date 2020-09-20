@@ -2,6 +2,7 @@
 
 export(codeCommune)
 export(keepOutline)
+import(here)
 import(sf)
 import(tidyverse)
 importFrom(R.utils,gunzip)

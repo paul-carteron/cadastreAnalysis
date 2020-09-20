@@ -1,25 +1,19 @@
 #' codeCommune
 #'
-#' @param path Adresse où se trouve le fichier d'entrees parcCad.xlsx
-#'
 #' @return Les codes communes associés aux parcellaires
 #' @export
 #'
-#' @import tidyverse
+#' @import tidyverse here
 #'
 #' @examples
-codeCommune <-function(path){
+#'
+codeCommune <-function(){
 
-   idParcelle = read_excel(path) %>%
-      as_tibble()
+   codeComm = read_excel(here("parcCad.xlsx")) %>%
+      select(commune) %>%
+      unique() %>%
+      pull()
 
-   if(is_tibble(idParcelle) == TRUE){
-      codeComm = idParcelle %>%
-         select(commune) %>%
-         unique() %>%
-         pull()
-   }
-
-   print(paste("La propriete est dans la commune : ",codeComm))
+   print(paste("Numeros de communes concerne(s) :",paste(codeComm, collapse = ", ")))
    return(codeComm)
 }
