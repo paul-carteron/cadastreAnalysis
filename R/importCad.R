@@ -8,8 +8,9 @@
 #' @import dplyr sf
 #' @importFrom R.utils gunzip
 #' @importFrom readxl read_excel
+#' @importFrom utils download.file
+#' @importFrom stringr str_sub
 #'
-#' @examples
 importCad <- function(codeCommune) {
 
    res = list()

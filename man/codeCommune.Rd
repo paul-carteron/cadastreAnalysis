@@ -12,6 +12,3 @@ Les codes communes associés aux parcellaires
 \description{
 codeCommune
 }
-\examples{
-
-}

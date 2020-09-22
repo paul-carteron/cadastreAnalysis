@@ -5,8 +5,6 @@
 #'
 #' @import dplyr here
 #'
-#' @examples
-#'
 codeCommune <-function(){
 
    codeComm = read_excel(here("parcCad.xlsx")) %>%
