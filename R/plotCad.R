@@ -10,8 +10,6 @@
 #'
 plotParcelles <- function(zoneEtude, printID = TRUE){
 
-   zoneEtude = importCad(29158)
-
    # Coordonnees WPS84 pour plot avec leaflet
    placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(4326)
    parcelles = st_transform(zoneEtude,4326)
