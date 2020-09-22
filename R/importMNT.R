@@ -22,8 +22,10 @@ importMNT <- function(zoneEtude, buffer = 100, zoom = 10) {
    ground_resolution = (cos(latitude * pi/180) * 2 * pi * 6378137) / (256 * 2^zoom)
 
    buffer = st_buffer(st_transform(zoneEtude,2154),buffer)
+
+   print("Importation du MNT en cour a la resolution :",round(ground_resolution,2),"m")
+
    MNT =  get_elev_raster(buffer, z = zoom, clip = "bbox")
 
-   print(paste("La resolution du MNT est de :",round(ground_resolution,2),"m"))
    return(MNT)
 }

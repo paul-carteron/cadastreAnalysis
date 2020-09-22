@@ -10,18 +10,22 @@
 #' @importFrom utils download.file
 #' @importFrom utils data
 #'
-importPlacettesIFN<-function(zoneEtude, buffer = 1500){
+importPlacettesIFN <- function(zoneEtude, buffer = 1500){
 
-   contour = zoneEtude %>%
+   zoneBuffer = zoneEtude %>%
       st_transform(2154) %>%
       st_buffer(dist = buffer)
 
-   placettesIFN <- IFNplacettes %>%
+   placIFN <- IFNplacettes %>%
       st_as_sf(coords = c("xl93", "yl93"), crs = 2154, remove = F, agr = "constant") %>%
-      st_intersection(zoneEtude) %>%
+      st_intersection(zoneBuffer) %>%
       group_by(xl93, yl93) %>%
       slice(1)%>%
       ungroup()
 
-   return(placettesIFN)
+   if(dim(placIFN)[1] == 0){
+      print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
+   }
+
+   return(placIFN)
 }

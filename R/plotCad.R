@@ -10,8 +10,10 @@
 #'
 plotParcelles <- function(zoneEtude, printID = TRUE){
 
+   zoneEtude = importCad(29158)
+
    # Coordonnees WPS84 pour plot avec leaflet
-   placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(placIFN,4326)
+   placIFN = importPlacettesIFN(zoneEtude, buffer = 1) %>% st_transform(4326)
    parcelles = st_transform(zoneEtude,4326)
 
    # Plot des parcelles cadastrales
@@ -43,9 +45,9 @@ plotParcelles <- function(zoneEtude, printID = TRUE){
                           color = "red", radius = NULL, opacity = 0.5)
    }
 
-   # Securit? si il n'y a pas de placettes IFN
+   # Securite si il n'y a pas de placettes IFN
    if(dim(placIFN)[1] == 0){
-      print("il n'y a pas de placettes IFN dans le buffer de la fonction importPlacettes IFN")
+      print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
    }else{
 
       IdIFN = placIFN$idp

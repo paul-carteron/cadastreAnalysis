@@ -43,6 +43,9 @@ importCad <- function(codeCommune) {
       unlink(temp)
 
       res[[i]] = sf
+
+      print(paste("Le telechargement de la commune",i,"est termine"))
+
    }
 
    return(bind_rows(res))

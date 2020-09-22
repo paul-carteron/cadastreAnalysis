@@ -20,7 +20,8 @@ Imports:
     utils,
     stringr,
     leaflet,
-    elevatr
+    elevatr,
+    rgdal
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
