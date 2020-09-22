@@ -8,7 +8,7 @@
 #'
 #' @import leaflet dplyr sf
 #'
-plotParcelles <- function(zoneEtude, printID = TRUE){
+plotParcelles <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
 
    # Coordonnees WPS84 pour plot avec leaflet
    placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(4326)
@@ -43,17 +43,21 @@ plotParcelles <- function(zoneEtude, printID = TRUE){
                           color = "red", radius = NULL, opacity = 0.5)
    }
 
-   # Securite si il n'y a pas de placettes IFN
-   if(dim(placIFN)[1] == 0){
-      print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
-   }else{
+   if(printPlacIFN == TRUE){
 
-      IdIFN = placIFN$idp
+      # Securite si il n'y a pas de placettes IFN
+      if(dim(placIFN)[1] == 0){
+         print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
+      }else{
 
-      res = res %>%
-         addMarkers(data = placIFN,
-                    label = IdIFN)
+         IdIFN = placIFN$idp
+
+         res = res %>%
+            addMarkers(data = placIFN,
+                       label = IdIFN)
+      }
    }
 
+   return(res)
    print(res)
 }
