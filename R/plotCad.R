@@ -1,4 +1,4 @@
-#' plotCad
+#' plotParcelles
 #'
 #' @param zoneEtude Objet sf contenant nos parcelles
 #' @param printID Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges
@@ -10,8 +10,9 @@
 #'
 plotParcelles <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
 
+   zoneEtude = parcelles
+
    # Coordonnees WPS84 pour plot avec leaflet
-   placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(4326)
    parcelles = st_transform(zoneEtude,4326)
 
    # Plot des parcelles cadastrales
@@ -44,6 +45,8 @@ plotParcelles <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
    }
 
    if(printPlacIFN == TRUE){
+
+      placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(4326)
 
       # Securite si il n'y a pas de placettes IFN
       if(dim(placIFN)[1] == 0){
