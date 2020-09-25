@@ -14,16 +14,13 @@
 keepOutline <- function(parcelles) {
 
    res = parcelles %>%
-      st_transform(2154)%>%
+      st_transform(2154) %>%
       ms_simplify(keep_shapes = 1, snap_interval = 20) %>%
       st_union() %>%
       st_remove_holes() %>%
       st_make_valid() %>%
       st_sf() %>%
-      st_union() %>%
-      st_remove_holes() %>%
-      st_make_valid() %>%
-      st_sf()
+      st_transform(4326)
 
    return(res)
 }

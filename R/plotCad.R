@@ -1,16 +1,15 @@
-#' plotParcelles
+#' plotCad
 #'
 #' @param zoneEtude Objet sf contenant nos parcelles
 #' @param printID Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges
+#' @param printPlacIFN Si TRUE, on telecharge les placettes IFN autour de la zone d'etude
 #'
 #' @return Une carte interactive permettant de voir l'emplacement de nos cadastres et les placettes IFN prochent
 #' @export
 #'
 #' @import leaflet dplyr sf
 #'
-plotParcelles <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
-
-   zoneEtude = parcelles
+plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
 
    # Coordonnees WPS84 pour plot avec leaflet
    parcelles = st_transform(zoneEtude,4326)

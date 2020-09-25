@@ -44,7 +44,7 @@ importCad <- function(codeCommune) {
 
       res[[i]] = sf
 
-      print(paste("Le telechargement de la commune",i,"est termine"))
+      print(paste("Le telechargement de la commune",codeCommune[i],"est termine"))
 
    }
 

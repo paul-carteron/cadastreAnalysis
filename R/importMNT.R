@@ -10,7 +10,6 @@
 #' @import sf rgdal
 #' @importFrom elevatr get_elev_raster
 #'
-#' @examples
 importMNT <- function(zoneEtude, buffer = 100, zoom = 10) {
 
    latitude = st_transform(zoneEtude,4326) %>%
@@ -23,7 +22,7 @@ importMNT <- function(zoneEtude, buffer = 100, zoom = 10) {
 
    buffer = st_buffer(st_transform(zoneEtude,2154),buffer)
 
-   print("Importation du MNT en cour a la resolution :",round(ground_resolution,2),"m")
+   print(paste("Importation du MNT en cour a la resolution :",round(ground_resolution,2),"m"))
 
    MNT =  get_elev_raster(buffer, z = zoom, clip = "bbox")
 

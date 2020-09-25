@@ -16,12 +16,14 @@ Imports:
     sf,
     here,
     readxl,
-    dplyr,
+    raster,
     utils,
     stringr,
     leaflet,
     elevatr,
-    rgdal
+    rgdal,
+    stars,
+    dplyr
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
