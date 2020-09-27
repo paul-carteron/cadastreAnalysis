@@ -23,7 +23,7 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 
          stroke = TRUE,
          weight = 1,
          fill = FALSE,
-         color = "blue")
+         color = "black")
 
    # On rajoute les identifiants des parcelles
    if(printID == TRUE & dim(zoneEtude)[2] > 1){

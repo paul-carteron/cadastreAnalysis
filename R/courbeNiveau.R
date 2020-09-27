@@ -14,7 +14,7 @@ courbeNiveau <- function(MNT, distInterCourbe = 100) {
   ext = round(range(MNT$layer, na.rm = TRUE),-2)
   brk = seq(ext[1], ext[2]-distInterCourbe, by = distInterCourbe)
 
-  print(paste("Courbe max :",ext[2]-distInterCourbe,"m -", "Courbe min :", ext[1],"m"))
+  print(paste("Courbe max :",max(brk),"m -", "Courbe min :", min(brk),"m"))
 
   courbeNiv = st_contour(MNT,
                          breaks = brk) %>% st_transform(4326)

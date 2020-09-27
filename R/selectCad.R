@@ -14,7 +14,7 @@ selectID <- function(zoneEtude) {
    shinyApp(
       ui = fluidPage(
          # Application title
-         titlePanel("Go Tar Heels!"),
+         titlePanel("Nom du cadastre"),
          # Top panel with county name
          verticalLayout(
             wellPanel(textOutput("id")),
@@ -30,6 +30,11 @@ selectID <- function(zoneEtude) {
             leaflet() %>%
                addTiles() %>%
                addPolygons(data = zoneEtude,
+                           opacity = 100,
+                           stroke = TRUE,
+                           weight = 1,
+                           fill = FALSE,
+                           color = "black",
                            layerId = ~id)
          })
 
