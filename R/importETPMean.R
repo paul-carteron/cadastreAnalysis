@@ -1,7 +1,7 @@
-#' importTempMean
+#' importETPMean
 #'
 #' @description Fonction permettant de recuperer les temperatures moyennes a partir des donnees MODIS.
-#' La raster a une resolution de 1km.
+#' La raster a une resolution de 500m.
 #'
 #' @param zoneEtude Objet sf contenant le shape de la zoneEtude
 #' @param firstDate Premiere prise en compte dans la moyenne
@@ -14,7 +14,7 @@
 #' @import MODISTools dplyr sf
 #' @importFrom raster calc
 #'
-importTempMean <- function(zoneEtude, firstDate = stop("Choisir une date de depart"), endDate = format(Sys.time(), "%Y-%m-%d"), bufferTemp = 4000){
+importETPMean <- function(zoneEtude, firstDate = stop("Choisir une date de depart"), endDate = format(Sys.time(), "%Y-%m-%d"), bufferTemp = 4000){
 
    if(as.character(firstDate) == FALSE){
       stop("firstdate doit etre au format character")
@@ -29,8 +29,8 @@ importTempMean <- function(zoneEtude, firstDate = stop("Choisir une date de depa
 
    # Recuperation des donnees du MODIS
    print("Importation des donnees du MODIS")
-   Subset <- mt_subset(product = "MOD16A2",
-                       band = "ET_500m",
+   Subset <- mt_subset(product = "MOD11A2",
+                       band = "LST_Day_1km",
                        lon = centre[1],
                        lat = centre[2],
                        km_lr = bufferTemp/1000,
@@ -40,12 +40,12 @@ importTempMean <- function(zoneEtude, firstDate = stop("Choisir une date de depa
 
    # On supprime des valeurs aberrantes
    SubsetPlot = Subset %>%
-      filter(value > -32767 | value < 32700) %>%
+      filter(value > 7500 | value < 65535) %>%
       filter(value != 0)
 
    # Conversion en raster puis en degrees
    raster = mt_to_raster(SubsetPlot)
-   raster = raster/8
+   raster = raster - 273.15
 
    # Moyenne des rasters (il y a un raster par dates)
    rasterMean = calc(raster, mean)

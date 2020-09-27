@@ -20,7 +20,7 @@ plotTempMean <- function(TempMeanRaster, zoneEtude){
       addLegend(
          pal = pal,
          values = values(TempMeanRaster),
-         title = "Temperatures [°C]")%>%
+         title = "Temperatures [degre]")%>%
          addPolylines(data = zoneEtude,
                       opacity = 1,
                       stroke = TRUE,
