@@ -24,7 +24,7 @@ importPlacettesIFN <- function(zoneEtude, buffer = 1500){
       ungroup()
 
    if(dim(placIFN)[1] == 0){
-      print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
+      print("Il n'y a pas de placettes IFN dans le buffer choisi")
    }
 
    return(placIFN)

@@ -23,10 +23,12 @@ Imports:
     elevatr,
     rgdal,
     stars,
-    dplyr
+    dplyr,
+    shiny
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
 BugReports: https://github.com/paul-carteron/cadastreAnalysis/issues
 Depends: 
     R (>= 2.10)
+

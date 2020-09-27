@@ -4,7 +4,7 @@
 \alias{plotCad}
 \title{plotCad}
 \usage{
-plotCad(zoneEtude, printID = TRUE, printPlacIFN = TRUE)
+plotCad(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 1500)
 }
 \arguments{
 \item{zoneEtude}{Objet sf contenant nos parcelles}
@@ -12,6 +12,8 @@ plotCad(zoneEtude, printID = TRUE, printPlacIFN = TRUE)
 \item{printID}{Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges}
 
 \item{printPlacIFN}{Si TRUE, on telecharge les placettes IFN autour de la zone d'etude}
+
+\item{bufferIFN}{Distance de prospection de placettes IFN autour de la zoneEtude}
 }
 \value{
 Une carte interactive permettant de voir l'emplacement de nos cadastres et les placettes IFN prochent

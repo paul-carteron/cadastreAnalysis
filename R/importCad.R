@@ -7,7 +7,6 @@
 #'
 #' @import dplyr sf
 #' @importFrom R.utils gunzip
-#' @importFrom readxl read_excel
 #' @importFrom utils download.file
 #' @importFrom stringr str_sub
 #'
@@ -30,15 +29,6 @@ importCad <- function(codeCommune) {
          st_as_sf() %>%
          st_transform(4326) %>%
          st_make_valid()
-
-      if(file.exists(here("parcCad.xlsx")) == TRUE){
-
-         idParcelle = read_excel(here("parcCad.xlsx")) %>%
-            mutate(id = paste(commune,section,numero, sep="."))
-
-         sf = sf %>%
-            filter(id %in% pull(idParcelle,id))
-      }
 
       unlink(temp)
 

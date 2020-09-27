@@ -3,13 +3,14 @@
 #' @param zoneEtude Objet sf contenant nos parcelles
 #' @param printID Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges
 #' @param printPlacIFN Si TRUE, on telecharge les placettes IFN autour de la zone d'etude
+#' @param bufferIFN Distance de prospection de placettes IFN autour de la zoneEtude
 #'
 #' @return Une carte interactive permettant de voir l'emplacement de nos cadastres et les placettes IFN prochent
 #' @export
 #'
 #' @import leaflet dplyr sf
 #'
-plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
+plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 1500){
 
    # Coordonnees WPS84 pour plot avec leaflet
    parcelles = st_transform(zoneEtude,4326)
@@ -25,9 +26,9 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
          color = "blue")
 
    # On rajoute les identifiants des parcelles
-   if(printID == TRUE){
+   if(printID == TRUE & dim(zoneEtude)[2] > 1){
 
-      # On extrait les coordonn?es lat et long
+      # On extrait les coordonnees lat et long
       latLong = zoneEtude %>%
          st_centroid() %>%
          st_coordinates()
@@ -45,11 +46,11 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE){
 
    if(printPlacIFN == TRUE){
 
-      placIFN = importPlacettesIFN(zoneEtude) %>% st_transform(4326)
+      placIFN = importPlacettesIFN(zoneEtude,buffer = bufferIFN) %>% st_transform(4326)
 
       # Securite si il n'y a pas de placettes IFN
       if(dim(placIFN)[1] == 0){
-         print("Il n'y a pas de placettes IFN : agrandir le buffer dans la fonction importPlacettesIFN")
+         print("Agrandir le bufferIFN")
       }else{
 
          IdIFN = placIFN$idp

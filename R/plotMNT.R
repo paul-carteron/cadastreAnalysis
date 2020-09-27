@@ -4,7 +4,7 @@
 #' @param zoneEtude Objet sf comportant le/les zones etudiees
 #' @param distInterCourbe Altitude entre deux courbes de niveau
 #'
-#' @import sf leaflet stars
+#' @import sf leaflet
 #' @importFrom grDevices terrain.colors
 #' @importFrom raster values
 #'
@@ -15,6 +15,8 @@ plotMNT <- function(MNT, zoneEtude, distInterCourbe = 100){
 
    palette = terrain.colors(length(unique(values(MNT))))
    pal = colorNumeric(palette, domain = values(MNT), na.color = NA)
+
+   print("Creation des courbes de niveau ..........")
    courbeNiv = courbeNiveau(MNT,distInterCourbe)
 
    print("Creation du graphique en cour ..........")
