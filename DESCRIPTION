@@ -24,11 +24,11 @@ Imports:
     rgdal,
     stars,
     dplyr,
-    shiny
+    shiny,
+    curl
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
 BugReports: https://github.com/paul-carteron/cadastreAnalysis/issues
 Depends: 
     R (>= 2.10)
-
