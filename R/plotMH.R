@@ -10,7 +10,7 @@
 #' @import sf dplyr leaflet
 #'
 plotMH <- function(MHShp, zoneEtude, bufferMH = 50000) {
-   MHShp = MH
+
    # Coordonnees en Lambert94
    MHShp = st_transform(MHShp, 2154)
    zoneEtude = st_transform(zoneEtude, 2154)
@@ -19,12 +19,14 @@ plotMH <- function(MHShp, zoneEtude, bufferMH = 50000) {
    MHShp = MHShp %>% st_crop(st_buffer(zoneEtude, dist = bufferMH))
 
    if (dim(MHShp)[1] == 0){
-      stop(paste("Il n'existe pas de Monuments Historiques dans un perimetre de",bufferAAC,"m autour de la zone d'etude. Essayez d'augmenter la taille du bufferMH."))
+      stop(paste("Il n'existe pas de Monuments Historiques dans un perimetre de",bufferMH,"m autour de la zone d'etude. Essayez d'augmenter la taille du bufferMH."))
    }
 
    # Coordonnees en WPS84 pour plot avec leaflet
    zoneEtude = st_transform(zoneEtude, 4326)
    MHShp = st_transform(MHShp, 4326)
+
+   print("ATTENTION : Les coordonnees des monuments historiques ne sont pas exactes donc il y a un decalage avec le fond de carte, zoomer pour plus de precision")
 
    # Plot des donnees
    res = leaflet() %>%
@@ -38,6 +40,7 @@ plotMH <- function(MHShp, zoneEtude, bufferMH = 50000) {
       ) %>%
       addMarkers(data = MHShp,
                  label = MHShp$tico)
+
 
    print(res)
    return(res)
