@@ -11,6 +11,9 @@ selectID <- function(zoneEtude) {
 
    assign("idZone", data.frame(), envir = .GlobalEnv)
 
+   centre = zoneEtude %>%
+      st_centroid()
+
    shinyApp(
       ui = fluidPage(
          # Application title
@@ -33,9 +36,13 @@ selectID <- function(zoneEtude) {
                            opacity = 100,
                            stroke = TRUE,
                            weight = 1,
-                           fill = FALSE,
+                           fill = TRUE,
+                           fillColor = NA,
                            color = "black",
-                           layerId = ~id)
+                           layerId = ~id) %>%
+               addCircleMarkers(data = centre,
+                                label = centre$id,
+                                color = "red", radius = NULL, opacity = 0.5)
          })
 
          # Moments
@@ -47,6 +54,5 @@ selectID <- function(zoneEtude) {
 
       }
    )
-
 }
 

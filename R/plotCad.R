@@ -35,9 +35,6 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 
 
       Lng = latLong[,1]
       Lat = latLong[,2]
-      Id = parcelles %>%
-         mutate(Id = paste(section,numero,sep=".")) %>%
-         pull(Id)
 
       res = res %>%
          addCircleMarkers(lng = Lng, lat = Lat, label = Id,

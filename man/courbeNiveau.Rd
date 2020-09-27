@@ -4,7 +4,7 @@
 \alias{courbeNiveau}
 \title{courbeNiveau}
 \usage{
-courbeNiveau(MNT, distInterCourbe = 100)
+courbeNiveau(MNT)
 }
 \arguments{
 \item{MNT}{Fichier MNT obtenue avec la fonction importMNT}

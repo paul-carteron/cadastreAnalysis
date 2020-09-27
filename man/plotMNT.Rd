@@ -4,7 +4,7 @@
 \alias{plotMNT}
 \title{plotMNT}
 \usage{
-plotMNT(MNT, zoneEtude, distInterCourbe = 100)
+plotMNT(MNT, zoneEtude)
 }
 \arguments{
 \item{MNT}{Raster MNT obtenue avec la fonction import MNT}
