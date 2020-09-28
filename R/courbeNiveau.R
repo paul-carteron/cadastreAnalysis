@@ -1,7 +1,6 @@
 #' courbeNiveau
 #'
 #' @param MNT Fichier MNT obtenue avec la fonction importMNT
-#' @param distInterCourbe Altitude enter deux courbes de niveaux
 #'
 #' @return Renvoi les courbes de niveau a partir d'un MNT
 #' @export

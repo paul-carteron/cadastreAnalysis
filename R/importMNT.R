@@ -7,7 +7,7 @@
 #' @return Renvoi le MNT de la zoneEtude
 #' @export
 #'
-#' @import sf rgdal
+#' @import sf
 #' @importFrom elevatr get_elev_raster
 #'
 importMNT <- function(zoneEtude, buffer = 100, zoom = 10) {
@@ -18,7 +18,7 @@ importMNT <- function(zoneEtude, buffer = 100, zoom = 10) {
       pull(Y) %>%
       mean()
 
-   ground_resolution = (cos(latitude * pi/180) * 2 * pi * 6378137) / (256 * 2^zoom)
+   ground_resolution = (cos(latitude * pi / 180) * 2 * pi * 6378137) / (256 * 2 ^ zoom)
 
    buffer = st_buffer(st_transform(zoneEtude,2154),buffer)
 

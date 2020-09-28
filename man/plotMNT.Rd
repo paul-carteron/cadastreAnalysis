@@ -10,8 +10,6 @@ plotMNT(MNT, zoneEtude)
 \item{MNT}{Raster MNT obtenue avec la fonction import MNT}
 
 \item{zoneEtude}{Objet sf comportant le/les zones etudiees}
-
-\item{distInterCourbe}{Altitude entre deux courbes de niveau}
 }
 \value{
 Imprime la carte avec le MNT

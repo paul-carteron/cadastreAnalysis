@@ -21,7 +21,6 @@ Imports:
     stringr,
     leaflet,
     elevatr,
-    rgdal,
     stars,
     dplyr,
     shiny,

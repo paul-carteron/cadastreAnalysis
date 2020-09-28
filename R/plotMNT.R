@@ -2,7 +2,6 @@
 #'
 #' @param MNT Raster MNT obtenue avec la fonction import MNT
 #' @param zoneEtude Objet sf comportant le/les zones etudiees
-#' @param distInterCourbe Altitude entre deux courbes de niveau
 #'
 #' @import sf leaflet
 #' @importFrom grDevices terrain.colors

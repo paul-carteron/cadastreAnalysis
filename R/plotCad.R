@@ -37,7 +37,7 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 
       Lat = latLong[,2]
 
       res = res %>%
-         addCircleMarkers(lng = Lng, lat = Lat, label = Id,
+         addCircleMarkers(lng = Lng, lat = Lat, label = id,
                           color = "red", radius = NULL, opacity = 0.5)
    }
 

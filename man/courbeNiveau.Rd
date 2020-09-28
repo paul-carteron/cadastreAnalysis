@@ -8,8 +8,6 @@ courbeNiveau(MNT)
 }
 \arguments{
 \item{MNT}{Fichier MNT obtenue avec la fonction importMNT}
-
-\item{distInterCourbe}{Altitude enter deux courbes de niveaux}
 }
 \value{
 Renvoi les courbes de niveau a partir d'un MNT
