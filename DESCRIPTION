@@ -25,7 +25,8 @@ Imports:
     dplyr,
     shiny,
     curl,
-    MODISTools
+    MODISTools,
+    insol
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
