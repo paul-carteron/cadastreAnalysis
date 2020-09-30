@@ -3,13 +3,24 @@
 #' @param geolShp Objet sf contenant les couches geologiques : sortie de la fonction importGeol
 #' @param zoneEtude Objet sf contenant la/les zoneEtude
 #' @param bufferGeol Buffer autour de la zoneEtude que l'on veut etudier
-#'
+#' @param mapBackground Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"
+
 #' @return Renvoi une carte interactive avec les differentes couches geologique
 #' @export
 #'
 #' @import leaflet sf shiny
 #'
-plotGeol <- function(geolShp, zoneEtude, bufferGeol = 100) {
+plotGeol <- function(geolShp, zoneEtude, mapBackground = "OpenStreetMap", bufferGeol = 100) {
+
+   if (mapBackground == "Ortho"){
+      background = "GeoportailFrance.orthos"
+   }else if (mapBackground == "Scan25"){
+      background = "GeoportailFrance.ignMaps"
+   }else if (mapBackground == "OpenStreetMap"){
+      background = "OpenStreetMap.France"
+   }else{
+      stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
+   }
 
    geolShp = st_transform(geolShp,2154)
    zoneEtude = st_transform(zoneEtude,2154)
@@ -42,7 +53,7 @@ plotGeol <- function(geolShp, zoneEtude, bufferGeol = 100) {
 
          output$map <- renderLeaflet({
             leaflet() %>%
-               addTiles() %>%
+               addProviderTiles(background) %>%
                addPolygons(data = geolShp, stroke = FALSE, fillOpacity = 0.6,
                            color = ~factpal(NOTATION),
                            layerId = ~MI_PRINX) %>%

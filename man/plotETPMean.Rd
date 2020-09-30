@@ -4,12 +4,14 @@
 \alias{plotETPMean}
 \title{plotETPMean}
 \usage{
-plotETPMean(ETPMeanRaster, zoneEtude)
+plotETPMean(ETPMeanRaster, zoneEtude, mapBackground = "OpenStreetMap")
 }
 \arguments{
 \item{ETPMeanRaster}{Raster des ETP moyennes obtenues avec la fonction importETPMean}
 
 \item{zoneEtude}{Objet sf contenant le shape de la zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 }
 \value{
 Renvoi une carte interactive de la temperature moyennes autour de notre zoneEtude.

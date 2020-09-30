@@ -4,12 +4,14 @@
 \alias{plotTempMean}
 \title{plotTempMean}
 \usage{
-plotTempMean(TempMeanRaster, zoneEtude)
+plotTempMean(TempMeanRaster, zoneEtude, mapBackground = "OpenStreetMap")
 }
 \arguments{
 \item{TempMeanRaster}{Raster des temperatures moyennes obtenues avec la fonction importTempMean}
 
 \item{zoneEtude}{Objet sf contenant le shape de la zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 }
 \value{
 Renvoi une carte interactive de la temperature moyennes autour de notre zoneEtude.

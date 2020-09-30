@@ -4,12 +4,14 @@
 \alias{plotMNT}
 \title{plotMNT}
 \usage{
-plotMNT(MNT, zoneEtude)
+plotMNT(MNT, zoneEtude, mapBackground = "OpenStreetMap")
 }
 \arguments{
 \item{MNT}{Raster MNT obtenue avec la fonction import MNT}
 
 \item{zoneEtude}{Objet sf comportant le/les zones etudiees}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 }
 \value{
 Imprime la carte avec le MNT

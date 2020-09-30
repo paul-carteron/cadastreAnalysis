@@ -4,10 +4,12 @@
 \alias{selectID}
 \title{selectID}
 \usage{
-selectID(zoneEtude)
+selectID(zoneEtude, mapBackground = "OpenStreetMap")
 }
 \arguments{
 \item{zoneEtude}{Objet sf contenant les cadastres de la zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 }
 \value{
 Renvoi un tableau avec les identifiants des zones choisies

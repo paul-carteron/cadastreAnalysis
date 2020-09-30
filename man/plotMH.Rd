@@ -4,12 +4,14 @@
 \alias{plotMH}
 \title{plotMH}
 \usage{
-plotMH(MHShp, zoneEtude, bufferMH = 50000)
+plotMH(MHShp, zoneEtude, mapBackground = "OpenStreetMap", bufferMH = 50000)
 }
 \arguments{
 \item{MHShp}{Objef sf contenant le shape des monuments historiques de France}
 
 \item{zoneEtude}{Objet sf contenant le shape de la zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 
 \item{bufferMH}{Perimetre de prospection autour de la zoneEtude}
 }

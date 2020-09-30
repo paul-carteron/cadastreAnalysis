@@ -3,13 +3,24 @@
 #' @param AACShp Object sf contenant le shp des AAC de France. Ce dernier peut se recuperer avec la fonction importAAC
 #' @param zoneEtude Objet sf contenant le shape de la zoneEtude
 #' @param bufferAAC Perimetre de prospection autour de la zoneEtude
-#'
+#' @param mapBackground Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"
+
 #' @return Renvoi une carte interactive avec la zone d'etude et les differentes AAC autour de la zoneEtude
 #' @export
 #'
 #' @import sf dplyr leaflet
 #'
-plotAAC <- function(AACShp, zoneEtude, bufferAAC = 1000) {
+plotAAC <- function(AACShp, zoneEtude, mapBackground = "OpenStreetMap", bufferAAC = 1000) {
+
+   if (mapBackground == "Ortho"){
+      background = "GeoportailFrance.orthos"
+   }else if (mapBackground == "Scan25"){
+      background = "GeoportailFrance.ignMaps"
+   }else if (mapBackground == "OpenStreetMap"){
+      background = "OpenStreetMap.France"
+   }else{
+      stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
+   }
 
    # Coordonnees en Lambert94
    AACShp = st_transform(AACShp, 2154)
@@ -32,7 +43,7 @@ plotAAC <- function(AACShp, zoneEtude, bufferAAC = 1000) {
 
    # Plot des donnees
    res = leaflet() %>%
-      addTiles() %>%
+      addProviderTiles(background) %>%
       addPolygons(
          data = AACShp,
          stroke = TRUE,

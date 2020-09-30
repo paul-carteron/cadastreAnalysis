@@ -4,12 +4,14 @@
 \alias{plotAAC}
 \title{PlotAAC}
 \usage{
-plotAAC(AACShp, zoneEtude, bufferAAC = 1000)
+plotAAC(AACShp, zoneEtude, mapBackground = "OpenStreetMap", bufferAAC = 1000)
 }
 \arguments{
 \item{AACShp}{Object sf contenant le shp des AAC de France. Ce dernier peut se recuperer avec la fonction importAAC}
 
 \item{zoneEtude}{Objet sf contenant le shape de la zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 
 \item{bufferAAC}{Perimetre de prospection autour de la zoneEtude}
 }

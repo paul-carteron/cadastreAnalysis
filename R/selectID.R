@@ -1,13 +1,24 @@
 #' selectID
 #'
 #' @param zoneEtude Objet sf contenant les cadastres de la zoneEtude
-#'
+#' @param mapBackground Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"
+
 #' @return Renvoi un tableau avec les identifiants des zones choisies
 #' @export
 #'
 #' @import shiny leaflet sf
 #'
-selectID <- function(zoneEtude) {
+selectID <- function(zoneEtude, mapBackground = "OpenStreetMap") {
+
+   if (mapBackground == "Ortho"){
+      background = "GeoportailFrance.orthos"
+   }else if (mapBackground == "Scan25"){
+      background = "GeoportailFrance.ignMaps"
+   }else if (mapBackground == "OpenStreetMap"){
+      background = "OpenStreetMap.France"
+   }else{
+      stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
+   }
 
    assign("idZone", data.frame(), envir = .GlobalEnv)
 
@@ -31,7 +42,7 @@ selectID <- function(zoneEtude) {
 
          output$map <- renderLeaflet({
             leaflet() %>%
-               addTiles() %>%
+               addProviderTiles(background) %>%
                addPolygons(data = zoneEtude,
                            opacity = 100,
                            stroke = TRUE,

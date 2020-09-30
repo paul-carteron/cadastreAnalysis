@@ -3,13 +3,24 @@
 #' @param MHShp Objef sf contenant le shape des monuments historiques de France
 #' @param zoneEtude Objet sf contenant le shape de la zoneEtude
 #' @param bufferMH Perimetre de prospection autour de la zoneEtude
-#'
+#' @param mapBackground Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"
+
 #' @return Renvoi une carte interactive representant le zoneEtude ainsi que les monuments historiques dans la zoneEtude
 #' @export
 #'
 #' @import sf dplyr leaflet
 #'
-plotMH <- function(MHShp, zoneEtude, bufferMH = 50000) {
+plotMH <- function(MHShp, zoneEtude, mapBackground = "OpenStreetMap", bufferMH = 50000) {
+
+   if (mapBackground == "Ortho"){
+      background = "GeoportailFrance.orthos"
+   }else if (mapBackground == "Scan25"){
+      background = "GeoportailFrance.ignMaps"
+   }else if (mapBackground == "OpenStreetMap"){
+      background = "OpenStreetMap.France"
+   }else{
+      stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
+   }
 
    # Coordonnees en Lambert94
    MHShp = st_transform(MHShp, 2154)
@@ -30,7 +41,7 @@ plotMH <- function(MHShp, zoneEtude, bufferMH = 50000) {
 
    # Plot des donnees
    res = leaflet() %>%
-      addTiles() %>%
+      addProviderTiles(background) %>%
       addPolylines(
          data = zoneEtude,
          opacity = 1,

@@ -4,12 +4,14 @@
 \alias{plotGeol}
 \title{plotGeol}
 \usage{
-plotGeol(geolShp, zoneEtude, bufferGeol = 100)
+plotGeol(geolShp, zoneEtude, mapBackground = "OpenStreetMap", bufferGeol = 100)
 }
 \arguments{
 \item{geolShp}{Objet sf contenant les couches geologiques : sortie de la fonction importGeol}
 
 \item{zoneEtude}{Objet sf contenant la/les zoneEtude}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 
 \item{bufferGeol}{Buffer autour de la zoneEtude que l'on veut etudier}
 }
