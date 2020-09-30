@@ -67,7 +67,7 @@ importGeol = function(zoneEtude){
 
    # Dans les deux cas particuliers on importe pls fois les donnees donc il faut enlever les doublons
    if(doublon == TRUE){
-      res = distinct(res)
+      res = distinct_all(res)
    }
 
    return(res)

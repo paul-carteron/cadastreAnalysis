@@ -4,10 +4,18 @@
 \alias{plotCad}
 \title{plotCad}
 \usage{
-plotCad(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 1500)
+plotCad(
+  zoneEtude,
+  mapBackground = "OpenStreetMap",
+  printID = FALSE,
+  printPlacIFN = TRUE,
+  bufferIFN = 1500
+)
 }
 \arguments{
 \item{zoneEtude}{Objet sf contenant nos parcelles}
+
+\item{mapBackground}{Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"}
 
 \item{printID}{Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges}
 

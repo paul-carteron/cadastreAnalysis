@@ -4,20 +4,31 @@
 #' @param printID Si TRUE, les noms des cadastres sont affichees. Il faut passer la souris sur les points rouges
 #' @param printPlacIFN Si TRUE, on telecharge les placettes IFN autour de la zone d'etude
 #' @param bufferIFN Distance de prospection de placettes IFN autour de la zoneEtude
+#' @param mapBackground Choix du fond de carte : "OpenStreetMap" , "Scan25" , "Ortho"
 #'
 #' @return Une carte interactive permettant de voir l'emplacement de nos cadastres et les placettes IFN prochent
 #' @export
 #'
 #' @import leaflet dplyr sf
 #'
-plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 1500){
+plotCad <- function(zoneEtude, mapBackground = "OpenStreetMap", printID = FALSE, printPlacIFN = TRUE, bufferIFN = 1500){
+
+   if (mapBackground == "Ortho"){
+     background = "GeoportailFrance.orthos"
+   }else if (mapBackground == "Scan25"){
+      background = "GeoportailFrance.ignMaps"
+   }else if (mapBackground == "OpenStreetMap"){
+      background = "OpenStreetMap.France"
+   }else{
+      stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
+   }
 
    # Coordonnees WPS84 pour plot avec leaflet
-   parcelles = st_transform(zoneEtude,4326)
+   zoneEtude = st_transform(zoneEtude,4326)
 
    # Plot des parcelles cadastrales
    res = leaflet(zoneEtude) %>%
-      addTiles() %>%
+      addProviderTiles(background) %>%
       addPolylines(
          opacity = 100,
          stroke = TRUE,
@@ -37,7 +48,7 @@ plotCad <- function(zoneEtude, printID = TRUE, printPlacIFN = TRUE, bufferIFN = 
       Lat = latLong[,2]
 
       res = res %>%
-         addCircleMarkers(lng = Lng, lat = Lat, label = id,
+         addCircleMarkers(data = zoneEtude, lng = Lng, lat = Lat, label = zoneEtude$id,
                           color = "red", radius = NULL, opacity = 0.5)
    }
 
