@@ -16,7 +16,7 @@ importPlacettesIFN <- function(zoneEtude, buffer = 1500){
       st_transform(2154) %>%
       st_buffer(dist = buffer)
 
-   placIFN <- IFNplacettes %>%
+   placIFN <- DataForet::IFNplacettes %>%
       st_as_sf(coords = c("xl93", "yl93"), crs = 2154, remove = F, agr = "constant") %>%
       st_intersection(zoneBuffer) %>%
       group_by(xl93, yl93) %>%

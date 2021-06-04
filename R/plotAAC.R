@@ -38,8 +38,8 @@ plotAAC <- function(AACShp, zoneEtude, mapBackground = "OpenStreetMap", bufferAA
    AACShp = st_transform(AACShp, 4326)
 
    # Recuperation des centres pour afficher les noms des zones de captages
-   centre = AACShp %>%
-      st_centroid()
+   # centre = AACShp %>%
+   #    st_centroid()
 
    # Plot des donnees
    res = leaflet() %>%
@@ -58,10 +58,11 @@ plotAAC <- function(AACShp, zoneEtude, mapBackground = "OpenStreetMap", bufferAA
          stroke = TRUE,
          weight = 1,
          color = "black"
-      ) %>%
-      addCircleMarkers(data = centre,
-                       label = centre$NomDeAAC_A,
-                       color = "darkblue", radius = NULL, opacity = 1)
+      )
+   # %>%
+   #    addCircleMarkers(data = centre,
+   #                     label = centre$NomDeAAC_A,
+   #                     color = "darkblue", radius = NULL, opacity = 1)
 
    print(res)
    return(res)

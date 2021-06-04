@@ -1,6 +1,6 @@
 Package: cadastreAnalysis
 Type: Package
-Title: Analysis of one or a set of cadastral parcels in France
+Title: Analysis of cadastral parcels in France
 Version: 0.1.0
 Author: CARTERON Paul
 Maintainer: CARTERON Paul <carteronpaul@gmail.com>
@@ -26,7 +26,8 @@ Imports:
     shiny,
     curl,
     MODISTools,
-    insol
+    insol,
+    DataForet
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis

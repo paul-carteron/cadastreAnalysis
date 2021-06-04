@@ -4,13 +4,13 @@
 \alias{importCad}
 \title{importCad}
 \usage{
-importCad(codeCommune)
+importCad(codeINSEE)
 }
 \arguments{
-\item{codeCommune}{codes communes étudiés. Si il existe un fichier "parcCad.xlsx", les cadastres sont directement triés}
+\item{codeINSEE}{Code INSEE d'une commune de France}
 }
 \value{
-Renvoi les cadastres souhaités
+Renvoi les cadastres de la commune selectionnee
 }
 \description{
 importCad
