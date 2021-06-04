@@ -27,7 +27,12 @@ Imports:
     curl,
     MODISTools,
     insol,
-    DataForet
+    DataForet,
+    fasterize,
+    purrr,
+    tools,
+    magrittr,
+    rlang
 Remotes:
     github::Bruciamacchie/DataForet
 URL: https://github.com/paul-carteron/cadastreAnalysis
