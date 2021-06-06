@@ -27,30 +27,30 @@
 #' @return Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"
 #' @export
 #'
-importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE) {
+importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE){
 
    zoneEtude <- st_transform(zoneEtude, 4326)
 
    # ---- Securite sur les arguments : class & oublie ----
-   if (missing(zoneEtude)) {
+   if (missing(zoneEtude)){
       stop("La zone d'etude n'a pas ete renseigne dans la fonction \n \n")
    }
 
-   if (!class(zoneEtude)[1] %in% "sf") {
+   if (!class(zoneEtude)[1] %in% "sf"){
       stop("La zone d'etude doit etre un objet de class \"sf\" \n \n")
    }
 
    # ---- Verification que le departement de la zone d'etude se trouve dans
    # le grand-est ---- Creation de la zone de travail si elle n'existe pas
-   if (!"MNS data" %in% list.files(here())) {
+   if (!"MNS data" %in% list.files(here())){
       dir.create(here("MNS data"))
    }
 
    # Telechargement des shapes des departements francais si ce n'est pas deja
    # le fait
-   importDepartement <- function() {
+   importDepartement <- function(){
 
-      if (!"carte_departement" %in% list.files(here("MNS data"))) {
+      if (!"carte_departement" %in% list.files(here("MNS data"))){
          temp <- tempfile(fileext = ".zip")
          temp2 <- tempdir()
          download.file(url = "https://www.data.gouv.fr/fr/datasets/r/eb36371a-761d-44a8-93ec-3d728bec17ce",
@@ -65,7 +65,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
          cat(paste0("\n \nLa carte des departements du Grand-est a ete telecharge ici : \n   ",
                     here("MNS data", "carte_departement"), "\n \n"))
 
-      } else {
+      }else{
          cat(paste0("\n \n La carte des departements du Grand-est est deja telecharge ici : \n   ",
                     here("MNS data", "carte_departement"), "\n \n"))
       }
@@ -80,9 +80,9 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       pull(.data$code_insee)
 
    # Erreur si la zone d'etude n'est pas dans le grand est
-   if (!codeDep %in% c("54", "57", "67", "68", "08", "10", "51", "52", "88", "55")) {
+   if (!codeDep %in% c("54", "57", "67", "68", "08", "10", "51", "52", "88", "55")){
       stop(paste0("La zone d'etude est dans le ", codeDep, ". \nElle doit etre dans un departement du Grand-Est : 54, 57 , 67, 68, 08, 10, 51, 52, 88, 55 \n \n "))
-   } else {
+   }else{
       cat(paste0("La zone d'etude se trouve dans le : ", codeDep, " \n \n"))
    }
 
@@ -109,14 +109,14 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    # ---- Creation du fichier pour telecharger les dalles ----
    folderNameIndex <- paste("Index", codeDep)
 
-   if (!folderNameIndex %in% list.files(here("MNS data"))) {
+   if (!folderNameIndex %in% list.files(here("MNS data"))){
       dir.create(here("MNS data", folderNameIndex))
    }
 
    # ---- Telechargement des index ---- Securite pour verifier qu'on a
    # exactement les 5 extensions necessaires a la lecture des index
    if (!setequal(c("dbf", "qpj", "prj", "shx", "shp"), file_ext(list.files(here("MNS data",
-                                                                                folderNameIndex))))) {
+                                                                                folderNameIndex))))){
       file.remove(list.files(here("MNS data", folderNameIndex), full.names = TRUE))
 
       # Creation de URL
@@ -126,14 +126,14 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
          pull(.data$urlDep)
 
       # Telechargement des index
-      for (i in c(".dbf", ".prj", ".qpj", ".shx", ".shp")) {
+      for (i in c(".dbf", ".prj", ".qpj", ".shx", ".shp")){
          download.file(url = paste0(urlDep, i), destfile = here("MNS data", folderNameIndex,
                                                                 paste0(folderNameIndex, i)), mode = "wb")
       }
 
       cat(paste0("Les Index ont ete telecharge ici : \n   ", here("MNS data",
                                                                   folderNameIndex), "\n \n"))
-   } else {
+   }else{
       cat("Les Index sont deja telecharge ici : \n   ", here("MNS data", folderNameIndex),
           "\n \n")
    }
@@ -142,11 +142,11 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    # Recuperation des noms de dalles a telecharger
    folderNameDalle <- paste("MNS", codeDep)
 
-   if (!folderNameDalle %in% list.files(here("MNS data"))) {
+   if (!folderNameDalle %in% list.files(here("MNS data"))){
       dir.create(here("MNS data", folderNameDalle))
       cat(paste("Le fichier", folderNameDalle, "a ete cree a l'adresse : \n   ",
                 here("MNS data", folderNameDalle), "\n \n"))
-   } else {
+   }else{
       cat(paste("Le fichier", folderNameDalle, "existe deja a cette adresse : \n   ",
                 here("MNS data", folderNameDalle), "\n \n"))
    }
@@ -178,15 +178,15 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       str_subset(pattern = "Index", negate = TRUE)
 
    # Si des dalles sont deja telecharge, elle ne seront pas retelecharger
-   if (!is_empty(dalleTelechargees)) {
+   if (!is_empty(dalleTelechargees)){
       dallesToLoad <- setdiff(dalles, dalleTelechargees)
-   } else {
+   }else{
       dallesToLoad <- dalles
    }
 
    nbDalles <- length(dallesToLoad)
 
-   for (i in 1:length(dallesToLoad)) {
+   for (i in 1:length(dallesToLoad)){
 
       cat(paste0("\n \n Dalles ", i, "/", nbDalles, "\n \n"))
 
@@ -204,9 +204,9 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
                   .f = ~ read_stars(here("MNS data", folderNameDalle,
                                                      paste0(.x, ".TIF"))))
 
-   if (!missing(rasterRes)) {
+   if (!missing(rasterRes)){
 
-      resample <- function(raster, rasterRes) {
+      resample <- function(raster, rasterRes){
          grid <- st_as_stars(st_bbox(raster), dx = rasterRes)
          res <- st_warp(raster, grid)
          return(res)
@@ -226,13 +226,13 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    cat("\n \n Fusion des dalles en cours... \n \n")
 
    # ---- Changement de coordonnees du raster ----
-   if (!missing(codeEPSG)) {
+   if (!missing(codeEPSG)){
       attr(MNS, "dimensions")$x$refsys <- st_crs(codeEPSG)
       attr(MNS, "dimensions")$y$refsys <- st_crs(codeEPSG)
    }
 
    # ---- Convertir l'objet star en objet raster ----
-   if (convertAsRaster == TRUE) {
+   if (convertAsRaster == TRUE){
       x <- st_dimensions(MNS)$x$to
       y <- st_dimensions(MNS)$y$to
 
