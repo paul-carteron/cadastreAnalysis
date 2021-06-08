@@ -46,31 +46,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       dir.create(here("MNS data"))
    }
 
-   # Telechargement des shapes des departements francais si ce n'est pas deja
-   # le fait
-   importDepartement <- function(){
-
-      if (!"carte_departement" %in% list.files(here("MNS data"))){
-         temp <- tempfile(fileext = ".zip")
-         temp2 <- tempdir()
-         download.file(url = "https://www.data.gouv.fr/fr/datasets/r/eb36371a-761d-44a8-93ec-3d728bec17ce",
-                       destfile = temp, mode = "wb")
-         unzip(temp, exdir = temp2)
-
-         res <- st_read(temp2)
-
-         dir.create(here("MNS data", "carte_departement"))
-         write_sf(res, here("MNS data", "carte_departement", "carte_departement.shp"))
-
-         cat(paste0("\n \nLa carte des departements du Grand-est a ete telecharge ici : \n   ",
-                    here("MNS data", "carte_departement"), "\n \n"))
-
-      }else{
-         cat(paste0("\n \n La carte des departements du Grand-est est deja telecharge ici : \n   ",
-                    here("MNS data", "carte_departement"), "\n \n"))
-      }
-
-   }
+   # Telechargement des shapes des departements francais si ce n'est pas deja fait
    importDepartement()
 
    # Importation du shape et verification du departement de la zone d'etude
@@ -80,9 +56,11 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       pull(.data$code_insee)
 
    # Erreur si la zone d'etude n'est pas dans le grand est
+   {
    if (!codeDep %in% c("54", "57", "67", "68", "08", "10", "51", "52", "88", "55")){
       stop(paste0("La zone d'etude est dans le ", codeDep, ". \nElle doit etre dans un departement du Grand-Est : 54, 57 , 67, 68, 08, 10, 51, 52, 88, 55 \n \n "))
-   }else{
+   }
+   else
       cat(paste0("La zone d'etude se trouve dans le : ", codeDep, " \n \n"))
    }
 
@@ -115,8 +93,10 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
    # ---- Telechargement des index ---- Securite pour verifier qu'on a
    # exactement les 5 extensions necessaires a la lecture des index
-   if (!setequal(c("dbf", "qpj", "prj", "shx", "shp"), file_ext(list.files(here("MNS data",
-                                                                                folderNameIndex))))){
+   {
+   if (!setequal(c("dbf", "qpj", "prj", "shx", "shp"),
+                 file_ext(list.files(here("MNS data",folderNameIndex))))){
+
       file.remove(list.files(here("MNS data", folderNameIndex), full.names = TRUE))
 
       # Creation de URL
@@ -133,7 +113,9 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
       cat(paste0("Les Index ont ete telecharge ici : \n   ", here("MNS data",
                                                                   folderNameIndex), "\n \n"))
-   }else{
+   }
+   else
+
       cat("Les Index sont deja telecharge ici : \n   ", here("MNS data", folderNameIndex),
           "\n \n")
    }
@@ -141,12 +123,14 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
    # Recuperation des noms de dalles a telecharger
    folderNameDalle <- paste("MNS", codeDep)
-
+   {
    if (!folderNameDalle %in% list.files(here("MNS data"))){
       dir.create(here("MNS data", folderNameDalle))
       cat(paste("Le fichier", folderNameDalle, "a ete cree a l'adresse : \n   ",
                 here("MNS data", folderNameDalle), "\n \n"))
-   }else{
+   }
+   else
+
       cat(paste("Le fichier", folderNameDalle, "existe deja a cette adresse : \n   ",
                 here("MNS data", folderNameDalle), "\n \n"))
    }
@@ -172,20 +156,28 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    # Nom des dalles deja telecharge pour eviter les doublons
    dalleTelechargees <- list.files(here("MNS data", folderNameDalle)) %>%
       # Suppression des extension de fichier
-      str_sub(1, nchar(.data) - 4) %>%
+      str_sub(1, nchar(.) - 4) %>%
       # Suppresion des character correspondant aux index car on travail sur
       # les dalles uniquement
-      str_subset(pattern = "Index", negate = TRUE)
+      str_subset(pattern = "Index", negate = TRUE) %>%
+      unique()
 
    # Si des dalles sont deja telecharge, elle ne seront pas retelecharger
+   {
    if (!is_empty(dalleTelechargees)){
       dallesToLoad <- setdiff(dalles, dalleTelechargees)
-   }else{
+   }
+   else
       dallesToLoad <- dalles
    }
 
    nbDalles <- length(dallesToLoad)
 
+   {
+   if(nbDalles == 0){
+      cat("Les dalles sont déjà téléchargées")
+   }
+   else
    for (i in 1:length(dallesToLoad)){
 
       cat(paste0("\n \n Dalles ", i, "/", nbDalles, "\n \n"))
@@ -197,6 +189,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       temp <- tempfile()
       download.file(url = urlDalle, destfile = temp, mode = "wb")
       unzip(zipfile = temp, exdir = here("MNS data", folderNameDalle))
+   }
    }
    # ---- Resolution du raster ---- Importation de chaque raster dans une
    # liste
@@ -245,3 +238,4 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
    return(MNS)
 }
+

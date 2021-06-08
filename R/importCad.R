@@ -13,7 +13,7 @@
 #'
 importCad <- function(codeINSEE) {
 
-      codeDep = str_sub(code,1,2)
+      codeDep = str_sub(codeINSEE,1,2)
       url = paste0("https://cadastre.data.gouv.fr/data/etalab-cadastre/latest/geojson/communes/",
                    codeDep,"/",
                    codeINSEE,"/cadastre-",

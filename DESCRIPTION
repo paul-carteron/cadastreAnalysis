@@ -17,7 +17,6 @@ Imports:
     here,
     readxl,
     raster,
-    utils,
     stringr,
     leaflet,
     elevatr,
