@@ -134,7 +134,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp"))) %>%
       st_transform(4326)
 
-   dallesToLoad <- index %>%
+   dalles <- index %>%
       st_intersection(zoneEtude) %>%
       pull(1) %>%
       # Magnifique, les index ne sont pas uniformes sur le serveur...
@@ -159,7 +159,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
       unique()
 
    # Si des dalles sont deja telecharge, elle ne seront pas retelecharger
-   dallesToLoad <- setdiff(dallesToLoad , dalleAlreadyLoad)
+   dallesToLoad <- setdiff(dalles, dalleAlreadyLoad)
 
    nbDalles <- length(dallesToLoad)
 
