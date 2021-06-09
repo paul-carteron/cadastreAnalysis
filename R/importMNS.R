@@ -1,6 +1,6 @@
 #' importMNS
 #'
-#' @description Permet de télécharger les MNS du Grand-Est.
+#' @description Permet de telecharger les MNS du Grand-Est.
 #'
 #' @usage importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE)
 #'
@@ -9,8 +9,8 @@
 #' @param codeEPSG code EPSG de la projection. 4326 = WGS84, 2154 = Lambert-93
 #' @param convertAsRaster si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars"
 #'
-#' @details La fonction crée un dossier "MNS data" dans le working directory. Tous les fichiers seront telechargé à cet endroit \cr
-#' Remarque : la fonction vérifie toujoours que les fichiers ne sont pas déjà téléchargés car les dalles MNS sont lourdes
+#' @details La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
+#' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
 #'
 #' @importFrom dplyr filter mutate pull tibble
 #' @importFrom R.utils cat
@@ -164,7 +164,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    nbDalles <- length(dallesToLoad)
 
    if(nbDalles == 0){
-      cat("Les dalles sont déjà téléchargées")
+      cat("Les dalles sont deja telechargees")
    }else{
       for (i in 1:length(dallesToLoad)){
 

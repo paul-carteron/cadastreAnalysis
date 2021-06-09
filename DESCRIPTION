@@ -26,7 +26,6 @@ Imports:
     curl,
     MODISTools,
     insol,
-    DataForet,
     fasterize,
     purrr,
     tools,
