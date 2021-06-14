@@ -19,9 +19,9 @@ importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE)
 Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"
 }
 \description{
-Permet de télécharger les MNS du Grand-Est.
+Permet de telecharger les MNS du Grand-Est.
 }
 \details{
-La fonction crée un dossier "MNS data" dans le working directory. Tous les fichiers seront telechargé à cet endroit \cr
-Remarque : la fonction vérifie toujoours que les fichiers ne sont pas déjà téléchargés car les dalles MNS sont lourdes
+La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
+Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
 }
