@@ -189,7 +189,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
       resample <- function(raster, rasterRes){
          grid <- st_as_stars(st_bbox(raster), dx = rasterRes)
-         res <- st_warp(raster, grid)
+         res <- st_warp(raster, grid, method = "average", use_gdal =TRUE)
          return(res)
       }
 
