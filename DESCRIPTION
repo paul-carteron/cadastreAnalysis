@@ -31,8 +31,11 @@ Imports:
     tools,
     magrittr,
     rlang,
-    tcltk
+    tcltk,
+    archive (>= 1.0.0)
 URL: https://github.com/paul-carteron/cadastreAnalysis
 BugReports: https://github.com/paul-carteron/cadastreAnalysis/issues
 Depends: 
     R (>= 2.10)
+Remotes:  
+    jimhester/archive
