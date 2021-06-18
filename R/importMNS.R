@@ -47,7 +47,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    }
 
    # Telechargement des shapes des departements francais si ce n'est pas deja fait
-   importDepartement()
+   importDepartement("MNS data")
 
    # Importation du shape et verification du departement de la zone d'etude
    codeDep <- st_read(here("MNS data", "carte_departement", "carte_departement.shp"),

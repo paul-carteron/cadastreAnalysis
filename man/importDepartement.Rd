@@ -4,7 +4,7 @@
 \alias{importDepartement}
 \title{importDepartement}
 \usage{
-importDepartement()
+importDepartement(folderName)
 }
 \description{
 Telecharge le carte des départements français si ce n'est pas déjà le cas
