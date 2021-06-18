@@ -1,9 +1,14 @@
 #' importDepartement
 #'
+#' @param folderName Nom du dossier dans lequel telecharger la carte des departements de France
+#'
 #' @description Telecharge le carte des départements français si ce n'est pas déjà le cas
 #'
 #' @importFrom here here
 #' @importFrom sf st_read write_sf
+#'
+#' @return Telecharge le carte des departements dans le dossier specifie par foldername
+#' @export
 #'
 importDepartement = function(folderName){
 

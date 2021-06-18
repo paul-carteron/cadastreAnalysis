@@ -6,6 +6,12 @@
 \usage{
 importDepartement(folderName)
 }
+\arguments{
+\item{folderName}{Nom du dossier dans lequel telecharger la carte des departements de France}
+}
+\value{
+Telecharge le carte des departements dans le dossier specifie par foldername
+}
 \description{
 Telecharge le carte des départements français si ce n'est pas déjà le cas
 }
