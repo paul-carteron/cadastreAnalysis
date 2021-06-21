@@ -137,7 +137,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp"))) %>%
       st_transform(4326)
 
-   cat("Detection des dalles contenant la zone...")
+   cat("\n Detection des dalles contenant la zone...\n\n")
 
    dalles <- index %>%
       st_intersection(zoneEtude) %>%
@@ -169,7 +169,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    nbDalles <- length(dallesToLoad)
 
    if(nbDalles == 0){
-      cat("Les dalles sont deja telechargees")
+      cat("Les dalles sont deja telechargees \n\n")
    }else{
       for (i in 1:length(dallesToLoad)){
 
