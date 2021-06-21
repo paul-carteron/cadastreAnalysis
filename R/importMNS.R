@@ -13,16 +13,17 @@
 #' @details La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
 #' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
 #'
-#' @importFrom dplyr filter mutate pull tibble
+#' @importFrom dplyr filter mutate pull tibble as_tibble
 #' @importFrom R.utils cat
 #' @importFrom fasterize fasterize raster
 #' @importFrom here here
 #' @importFrom purrr exec is_empty map
 #' @importFrom sf st_as_sf st_bbox st_crs st_intersection st_read st_transform write_sf
 #' @importFrom stars read_stars st_as_stars st_dimensions st_warp
-#' @importFrom stringr str_replace str_sub str_subset
+#' @importFrom stringr str_replace str_sub str_subset str_split_fixed
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
+#' @importFrom tidyr unite
 #'
 #' @return Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"
 #' @export
@@ -142,6 +143,16 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
       # Alors l?, c'est juste scandaleux... Dans les noms de dalles du 08,
       # il y a des - au lieu de _
       str_replace("-", "_")
+
+   # Les numeros d'index ont un decalage dans le 08...
+   if (codeDep == "08"){
+      dalles = dalles %>%
+         str_split_fixed("_", n=4) %>%
+         as_tibble() %>%
+         mutate(V4 = as.integer(.data$V4)-1) %>%
+         unite(col = .data$dalles, sep = "_") %>%
+         pull(.data$dalles)
+   }
 
    # Preparation de l'URL
    urlData <- dataURL %>%
