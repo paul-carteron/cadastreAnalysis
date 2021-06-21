@@ -116,7 +116,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
                                                                 paste0(folderNameIndex, i)), mode = "wb")
       }
 
-      cat(paste0("Les Index ont ete telecharge ici"))
+      cat(paste0("Les Index ont ete telecharge ici \n\n"))
    }
    # ---- Importation du modele numerique de surface ----
 
