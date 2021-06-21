@@ -150,7 +150,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
          str_split_fixed("_", n=4) %>%
          as_tibble() %>%
          mutate(V4 = as.integer(.data$V4)-1) %>%
-         unite(col = .data$dalles, sep = "_") %>%
+         unite(col = dalles, sep = "_") %>%
          pull(.data$dalles)
    }
 
