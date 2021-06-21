@@ -45,7 +45,8 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    }
 
    cat(paste0("Tous les fichiers telecharges seront disponible a cette adresse :\n",
-              here("MNS data")))
+              here("MNS data"),
+              "\n\n"))
 
    # Telechargement des shapes des departements francais si ce n'est pas deja fait
 
@@ -161,7 +162,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    nbDalles <- length(dallesToLoad)
 
    if(nbDalles == 0){
-      cat("Les dalles sont deja telechargees")
+      cat("Les dalles sont deja telechargees \n\n")
    }else{
       for (i in 1:length(dallesToLoad)){
 
