@@ -4,16 +4,18 @@
 \alias{importMNS}
 \title{importMNS}
 \usage{
-importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE)
+importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE)
 }
 \arguments{
-\item{zoneEtude}{objet de class sf}
+\item{zoneEtude}{objet de class sf corresopndant a un unique polygone}
 
 \item{rasterRes}{resolution du raster de sortie en metre. La resolution minimale est de 0.2m}
 
 \item{codeEPSG}{code EPSG de la projection. 4326 = WGS84, 2154 = Lambert-93}
 
-\item{convertAsRaster}{si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars"}
+\item{codeDep}{si le numero departement n'est connu il est detecte automatiquement mais cela augmente le temps de calcul}
+
+\item{convertAsRaster}{si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars}
 }
 \value{
 Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"

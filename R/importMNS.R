@@ -1,13 +1,14 @@
 #' importMNS
 #'
-#' @description Permet de telecharger les MNS du Grand-Est.
-#'
-#' @usage importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE)
-#'
-#' @param zoneEtude objet de class sf
+#' @param zoneEtude objet de class sf corresopndant a un unique polygone
 #' @param rasterRes resolution du raster de sortie en metre. La resolution minimale est de 0.2m
 #' @param codeEPSG code EPSG de la projection. 4326 = WGS84, 2154 = Lambert-93
-#' @param convertAsRaster si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars"
+#' @param codeDep si le numero departement n'est connu il est detecte automatiquement mais cela augmente le temps de calcul
+#' @param convertAsRaster si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars
+#'
+#' @description Permet de telecharger les MNS du Grand-Est.
+#'
+#' @usage importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE)
 #'
 #' @details La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
 #' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
@@ -20,14 +21,13 @@
 #' @importFrom sf st_as_sf st_bbox st_crs st_intersection st_read st_transform write_sf
 #' @importFrom stars read_stars st_as_stars st_dimensions st_warp
 #' @importFrom stringr str_replace str_sub str_subset
-#' @importFrom tools file_ext
 #' @importFrom magrittr "%>%"
 #' @importFrom rlang .data
 #'
 #' @return Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"
 #' @export
 #'
-importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaster = FALSE){
+importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE){
 
    zoneEtude <- st_transform(zoneEtude, 4326)
 
@@ -47,20 +47,17 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
    }
 
    # Telechargement des shapes des departements francais si ce n'est pas deja fait
-   importDepartement("MNS data")
+   if (missing(codeDep)){
+      codeDep = detectDepartement(zoneEtude)
+      cat("Detection du departement de la zone etudiee...")
+   }
 
-   # Importation du shape et verification du departement de la zone d'etude
-   codeDep <- st_read(here("MNS data", "carte_departement", "carte_departement.shp"),
-                      quiet = TRUE) %>%
-      st_intersection(zoneEtude) %>%
-      pull(.data$code_insee)
+   cat(paste0("La zone etudiee se trouve dans le : ",codeDep))
 
    # Erreur si la zone d'etude n'est pas dans le grand est
 
    if (!codeDep %in% c("54", "57", "67", "68", "08", "10", "51", "52", "88", "55")){
       stop(paste0("La zone d'etude est dans le ", codeDep, ". \nElle doit etre dans un departement du Grand-Est : 54, 57 , 67, 68, 08, 10, 51, 52, 88, 55 \n \n "))
-   }else{
-      cat(paste0("La zone d'etude se trouve dans le : ", codeDep, " \n \n"))
    }
 
    # ---- Dataframe contenant les URL specifique a chaque dep car le site est mal indexe ----
@@ -91,6 +88,11 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, convertAsRaste
 
    # ---- Telechargement des index ---- Securite pour verifier qu'on a
    # exactement les 5 extensions necessaires a la lecture des index
+
+   file_ext = function (x){
+      pos <- regexpr("\\.([[:alnum:]]+)$", x)
+      ifelse(pos > -1L, substring(x, pos + 1L), "")
+   }
 
    if (!setequal(c("dbf", "qpj", "prj", "shx", "shp"),
                  file_ext(list.files(here("MNS data",folderNameIndex))))){
