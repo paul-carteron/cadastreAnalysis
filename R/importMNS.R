@@ -44,6 +44,9 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
       dir.create(here("MNS data"))
    }
 
+   cat(paste0("Tous les fichiers telecharges seront disponible a cette adresse :\n",
+              here("MNS data")))
+
    # Telechargement des shapes des departements francais si ce n'est pas deja fait
 
    if (missing(codeDep)){
@@ -112,12 +115,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
                                                                 paste0(folderNameIndex, i)), mode = "wb")
       }
 
-      cat(paste0("Les Index ont ete telecharge ici :\n",
-                 here("MNS data",folderNameIndex),"\n\n"))
-   }else{
-
-      cat(paste0("Les Index sont deja telecharge ici :\n",
-          here("MNS data",folderNameIndex),"\n\n"))
+      cat(paste0("Les Index ont ete telecharge ici"))
    }
    # ---- Importation du modele numerique de surface ----
 
@@ -126,18 +124,12 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
 
    if (!folderNameDalle %in% list.files(here("MNS data"))){
       dir.create(here("MNS data", folderNameDalle))
-      cat(paste0("Le fichier ", folderNameDalle, " a ete cree a l'adresse :\n",
-                here("MNS data", folderNameDalle),"\n\n"))
-   }else{
-
-      cat(paste0("Le fichier ", folderNameDalle, " existe deja a cette adresse :\n",
-                here("MNS data", folderNameDalle), "\n\n"))
    }
 
    index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp")), quiet = TRUE) %>%
       st_transform(4326)
 
-   cat("\nDetection des dalles contenant la zone...\n\n")
+   cat("Detection des dalles contenant la zone...\n\n")
 
    dalles <- index %>%
       st_intersection(zoneEtude) %>%
@@ -169,7 +161,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    nbDalles <- length(dallesToLoad)
 
    if(nbDalles == 0){
-      cat("Les dalles sont deja telechargees \n\n")
+      cat("Les dalles sont deja telechargees")
    }else{
       for (i in 1:length(dallesToLoad)){
 
