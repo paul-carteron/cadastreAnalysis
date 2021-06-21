@@ -134,10 +134,10 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
                 here("MNS data", folderNameDalle), "\n\n"))
    }
 
-   index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp"))) %>%
+   index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp")), quiet = TRUE) %>%
       st_transform(4326)
 
-   cat("\n Detection des dalles contenant la zone...\n\n")
+   cat("\nDetection des dalles contenant la zone...\n\n")
 
    dalles <- index %>%
       st_intersection(zoneEtude) %>%
