@@ -12,7 +12,7 @@
 detectDepartement = function(shape){
 
    if (dim(shape)[1] != 1){
-      return(cat(paste0("La fonction prend un polygon unique en entree. ",
+      stop(cat(paste0("La fonction prend un polygon unique en entree. ",
                         dim(shape)[1],
                         " polygons ont ete renseignes. \n\n")))
    }

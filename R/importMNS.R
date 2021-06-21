@@ -47,8 +47,10 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    # Telechargement des shapes des departements francais si ce n'est pas deja fait
 
    if (missing(codeDep)){
-      codeDep = detectDepartement(zoneEtude)
       cat("Detection du departement de la zone etudiee...\n\n")
+      codeDep = detectDepartement(zoneEtude)
+   }else if (!is.character("88")){
+      stop("Le codeDep doit etre au format character (ex : \"29\") \n\n")
    }
 
    cat(paste0("La zone etudiee se trouve dans le : ",codeDep,"\n\n"))
@@ -110,12 +112,12 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
                                                                 paste0(folderNameIndex, i)), mode = "wb")
       }
 
-      cat(paste0("Les Index ont ete telecharge ici : \n   ", here("MNS data",
-                                                                  folderNameIndex), "\n\n"))
+      cat(paste0("Les Index ont ete telecharge ici :\n",
+                 here("MNS data",folderNameIndex),"\n\n"))
    }else{
 
-      cat("Les Index sont deja telecharge ici : \n   ", here("MNS data", folderNameIndex),
-          "\n\n")
+      cat(paste0("Les Index sont deja telecharge ici :\n",
+          here("MNS data",folderNameIndex),"\n\n"))
    }
    # ---- Importation du modele numerique de surface ----
 
@@ -124,16 +126,18 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
 
    if (!folderNameDalle %in% list.files(here("MNS data"))){
       dir.create(here("MNS data", folderNameDalle))
-      cat(paste("Le fichier", folderNameDalle, "a ete cree a l'adresse : \n   ",
-                here("MNS data", folderNameDalle), "\n\n"))
+      cat(paste0("Le fichier ", folderNameDalle, " a ete cree a l'adresse :\n",
+                here("MNS data", folderNameDalle),"\n\n"))
    }else{
 
-      cat(paste("Le fichier", folderNameDalle, "existe deja a cette adresse : \n   ",
+      cat(paste0("Le fichier ", folderNameDalle, " existe deja a cette adresse :\n",
                 here("MNS data", folderNameDalle), "\n\n"))
    }
 
    index <- st_read(here("MNS data", folderNameIndex, paste0(folderNameIndex, ".shp"))) %>%
       st_transform(4326)
+
+   cat("Detection des dalles contenant la zone...")
 
    dalles <- index %>%
       st_intersection(zoneEtude) %>%
@@ -169,7 +173,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    }else{
       for (i in 1:length(dallesToLoad)){
 
-         cat(paste0("\n\n Dalles ", i, "/", nbDalles, "\n\n"))
+         cat(paste0("Dalles ", i, "/", nbDalles, "\n\n"))
 
          i <- dallesToLoad[i]
          i <- paste0(i, ".zip")
@@ -194,7 +198,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
          return(res)
       }
 
-      cat(paste0("\n\n Les rasters sont en cours de conversion a la resolution : ",
+      cat(paste0("Les rasters sont en cours de conversion a la resolution : ",
                  rasterRes, "m \n\n"))
 
       rasters <- map(.x = rasters, .f = ~resample(.x))
@@ -205,7 +209,6 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    # d'utiliser les element d'une liste directement comme variable d'une
    # fonction
    MNS <- exec("st_mosaic", !!!rasters)
-   cat("\n\n Fusion des dalles en cours... \n\n")
 
    # ---- Changement de coordonnees du raster ----
    if (!missing(codeEPSG)){
@@ -227,3 +230,4 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
 
    return(MNS)
 }
+
