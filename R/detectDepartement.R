@@ -13,8 +13,8 @@ detectDepartement = function(shape){
 
    if (dim(shape)[1] != 1){
       stop(cat(paste0("La fonction prend un polygon unique en entree. ",
-                        dim(shape)[1],
-                        " polygons ont ete renseignes. \n\n")))
+                      dim(shape)[1],
+                      " polygons ont ete renseignes. Utiliser la fonction cadastreAnalysis::keepOutline() pour garder un unique polygon\n\n")))
    }
 
    shape = st_transform(shape,st_crs(data_departement))

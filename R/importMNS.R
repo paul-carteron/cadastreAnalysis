@@ -41,6 +41,12 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
       stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
    }
 
+   if (dim(zoneEtude)[1] != 1){
+      stop(cat(paste0("La fonction prend un polygon unique en entree. ",
+                      dim(zoneEtude)[1],
+                      " polygons ont ete renseignes. Utiliser la fonction cadastreAnalysis::keepOutline() pour garder un unique polygon\n\n")))
+   }
+
    if (!"MNS data" %in% list.files(here())){
       dir.create(here("MNS data"))
    }
