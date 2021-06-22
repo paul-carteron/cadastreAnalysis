@@ -4,18 +4,20 @@
 \alias{importMNT}
 \title{importMNT}
 \usage{
-importMNT(zoneEtude, buffer = 100, zoom = 10)
+importMNT(zoneEtude, res = "25m", codeDep, source = FALSE)
 }
 \arguments{
-\item{zoneEtude}{L'objet sf contenant nos parcelles cadastrales}
+\item{zoneEtude}{objet de class sf corresopndant a un unique polygone}
 
-\item{buffer}{Zone de prospection en metre}
+\item{res}{resolution du raster : "25m" ou "5m"}
 
-\item{zoom}{Nibveau de precision du MNT. Voir fonction "get_elev_raster" du package elevatr pour plus d'infos.}
+\item{codeDep}{si non renseigne, le departement est detecte automatiquement (+ 5/10s)}
+
+\item{source}{si TRUE, la fonction renvoi la source du MNT au format shp}
 }
 \value{
-Renvoi le MNT de la zoneEtude
+renvoi le MNT de la zone etudiee ou la source de la donnee si "source" = TRUE
 }
 \description{
-importMNT
+Permet de telecharger les MNT de l'IGN a la resolution 5m et 25m sur toute la France y compris les DOM-TOMs
 }
