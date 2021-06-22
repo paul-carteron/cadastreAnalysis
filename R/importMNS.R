@@ -54,7 +54,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    if (missing(codeDep)){
       cat("Detection du departement de la zone etudiee...\n\n")
       codeDep = detectDepartement(zoneEtude)
-   }else if (!is.character("88")){
+   }else if (!is.character(codeDep)){
       stop("Le codeDep doit etre au format character (ex : \"29\") \n\n")
    }
 

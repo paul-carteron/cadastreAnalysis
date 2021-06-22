@@ -4,7 +4,7 @@
 #'
 #' @description Detecte dans quel departement se trouve le polygon en entree
 #'
-#' @importFrom sf st_intersection
+#' @importFrom sf st_intersection st_transform st_crs
 #'
 #' @return Renvoi le numero de departement du polygon en entree
 #' @export
@@ -16,6 +16,8 @@ detectDepartement = function(shape){
                         dim(shape)[1],
                         " polygons ont ete renseignes. \n\n")))
    }
+
+   shape = st_transform(shape,st_crs(data_departement))
 
    # benchmark realise avec st_crop
    num_dep = st_intersection(shape,data_departement)
