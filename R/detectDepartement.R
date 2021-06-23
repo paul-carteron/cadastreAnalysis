@@ -1,6 +1,6 @@
 #' detectDepartement
 #'
-#' @param shape Objet sf contenant un seul polygone
+#' @param zoneEtude Objet sf contenant un seul polygone
 #'
 #' @description Detecte dans quel departement se trouve le polygon en entree
 #'
@@ -9,19 +9,34 @@
 #' @return Renvoi le numero de departement du polygon en entree
 #' @export
 #'
-detectDepartement = function(shape){
+detectDepartement = function(zoneEtude){
 
-   if (dim(shape)[1] != 1){
-      stop(cat(paste0("La fonction prend un polygon unique en entree. ",
-                      dim(shape)[1],
-                      " polygons ont ete renseignes. Utiliser la fonction cadastreAnalysis::keepOutline() pour garder un unique polygon\n\n")))
+   if (missing(zoneEtude)){
+      stop("La zone d'etude n'a pas ete renseigne dans la fonction \n\n")
    }
 
-   shape = st_transform(shape,st_crs(data_departement))
+   if (!class(zoneEtude)[1] %in% "sf"){
+      stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
+   }
 
-   # benchmark realise avec st_crop
-   num_dep = st_intersection(shape,data_departement)
+   if (dim(zoneEtude)[1] != 1){
+      stop("La zone d'etude doit etre un unique polygone. Utiliser la fonction cadastreAnalysis::keepOutline sur la zone etudiee \n\n")
+   }
 
-   return(num_dep[["code_insee"]])
+   zoneEtude = zoneEtude %>%
+      st_transform(st_crs(data_departement))
+
+   num_dep = st_intersection(data_departement, zoneEtude)
+
+   num = paste(num_dep[["code_insee"]])
+   nom = paste(num_dep[["nom"]])
+   liste = paste("- le",num,":", nom, collapse = "\n")
+
+   if(length(num_dep[["code_insee"]]) > 1){
+      stop(paste0("La zone etudiee se trouve sur plusieurs departements differents :\n",
+                  liste))
+   }else{
+      return(num_dep[["code_insee"]])
+   }
 
 }

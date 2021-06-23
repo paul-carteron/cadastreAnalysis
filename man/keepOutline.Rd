@@ -2,7 +2,7 @@
 % Please edit documentation in R/keepOutline.R
 \name{keepOutline}
 \alias{keepOutline}
-\title{Outline}
+\title{keepOutline}
 \usage{
 keepOutline(parcelles)
 }
@@ -13,5 +13,5 @@ keepOutline(parcelles)
 Le contour de nos parcelles. Format sortie : Lambert93 / EPSG : 2154
 }
 \description{
-Outline
+keepOutline
 }

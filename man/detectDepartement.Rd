@@ -4,10 +4,10 @@
 \alias{detectDepartement}
 \title{detectDepartement}
 \usage{
-detectDepartement(shape)
+detectDepartement(zoneEtude)
 }
 \arguments{
-\item{shape}{Objet sf contenant un seul polygone}
+\item{zoneEtude}{Objet sf contenant un seul polygone}
 }
 \value{
 Renvoi le numero de departement du polygon en entree

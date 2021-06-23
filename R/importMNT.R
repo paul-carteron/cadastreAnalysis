@@ -36,11 +36,7 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
       stop("res doit etre egal a  : \"25m\" ou \"5m\" \n\n")
    }
 
-   if (dim(zoneEtude)[1] != 1){
-      stop(cat(paste0("La fonction prend un polygon unique en entree. ",
-                      dim(zoneEtude)[1],
-                      " polygons ont ete renseignes. Utiliser la fonction cadastreAnalysis::keepOutline() pour garder un unique polygon\n\n")))
-   }
+   zoneEtude = keepOutline(zoneEtude)
 
    # ---- Creation du dossier qui va contenir les MNTs ----
    if (!"MNT data" %in% list.files(here())){
