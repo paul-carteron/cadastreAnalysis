@@ -23,7 +23,6 @@ codeINSEE = function(code_postal = "29760", interactive = FALSE){
    if (interactive){
       commune = tcltk::tk_select.list(data_commune$commune)
       code_insee = as.character(data_commune[data_commune$commune == commune,"code_insee"])
-      return(code_insee)
    }
 
    # ---- Est-ce que c'est bien un code postal existant ? ----
@@ -31,15 +30,18 @@ codeINSEE = function(code_postal = "29760", interactive = FALSE){
       communes = data_commune[data_commune$code_postal == code_postal,"commune"]$commune
       # ---- S'il il n'y a qu'une commune qui correspond au code postal pas de choix a faire ----
       if(length(communes) == 1){
-         code_insee = as.character(data_commune[data_commune$code_postal == code_postal,"code_insee"])
-         return(code_insee)
+         code_insee = data_commune[data_commune$code_postal == code_postal,"code_insee"]$code_insee
       # ---- Choix a faire parmis les communes associees au code postal ----
       }else{
+         cat("Plusieurs communes sont associees a se code postal.\nChoissisez une commune ci-dessous :\n")
          commune = select.list(communes)
-         code_insee = as.character(data_commune[data_commune$commune == commune,"code_insee"])
-         return(code_insee)
+         code_insee = data_commune[data_commune$code_postal == code_postal &
+                                   data_commune$commune == commune,"code_insee"]$code_insee
       }
+
    }else{
       stop("Le code postal n'existe pas")
    }
+
+   return(code_insee)
 }
