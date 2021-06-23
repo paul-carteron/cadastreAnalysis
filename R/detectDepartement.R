@@ -19,10 +19,6 @@ detectDepartement = function(zoneEtude){
       stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
    }
 
-   if (dim(zoneEtude)[1] != 1){
-      stop("La zone d'etude doit etre un unique polygone. Utiliser la fonction cadastreAnalysis::keepOutline sur la zone etudiee \n\n")
-   }
-
    zoneEtude = zoneEtude %>%
       st_transform(st_crs(data_departement))
 
