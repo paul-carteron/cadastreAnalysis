@@ -15,7 +15,7 @@ detectDepartement = function(zoneEtude){
       stop("La zone d'etude n'a pas ete renseigne dans la fonction \n\n")
    }
 
-   if (!class(zoneEtude)[1] %in% c("sf","sfc_MULTIPOLYGON")){
+   if (!class(zoneEtude)[1] %in% c("sf","sfc_MULTIPOLYGON", "sfc", "sfc_POLYGON")){
       stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
    }
 
