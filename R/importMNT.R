@@ -2,7 +2,7 @@
 #'
 #' @param zoneEtude  objet de class sf corresopndant a un unique polygone
 #' @param res resolution du raster : "25m" ou "5m"
-#' @param codeDep si non renseigne, le departement est detecte automatiquement (+ 5/10s)
+#' @param codeDep si non renseigne, le departement est detecte automatiquement (+ 5/10s). Attention, il faut bien verifier que les polygones en entrees soient TOUS dans le codeDep renseigne.
 #' @param source si TRUE, la fonction renvoi la source du MNT au format shp
 #'
 #' @description Permet de telecharger les MNT de l'IGN a la resolution 5m et 25m sur toute la France y compris les DOM-TOMs
@@ -84,11 +84,6 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
       tf <- tempfile()
       download.file(liens, tf, mode = "wb" )
       archive_extract(archive(tf), dir = here("MNT data",res))
-
-      cat(paste0("Les MNT du ",
-                 codeDep,
-                 " ont ete telecharges ici : \n",
-                 here("MNT data",res),"\n\n"))
    }
 
    # ---- Detection du fichier contenant les dalles et les sources ----
