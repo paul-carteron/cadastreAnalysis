@@ -18,7 +18,7 @@
 #' @importFrom fasterize fasterize raster
 #' @importFrom here here
 #' @importFrom purrr exec is_empty map
-#' @importFrom sf st_as_sf st_bbox st_crs st_intersection st_read st_transform write_sf
+#' @importFrom sf st_as_sf st_bbox st_crs st_intersection st_read st_transform st_union
 #' @importFrom stars read_stars st_as_stars st_dimensions st_warp
 #' @importFrom stringr str_replace str_sub str_subset str_split_fixed
 #' @importFrom magrittr "%>%"
@@ -41,7 +41,7 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
       stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
    }
 
-   zoneEtude = keepOutline(zoneEtude)
+   zoneEtude = invisible(st_union(zoneEtude))
 
    if (!"MNS data" %in% list.files(here())){
       dir.create(here("MNS data"))

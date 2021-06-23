@@ -13,7 +13,7 @@
 #' @importFrom archive archive archive_extract
 #' @importFrom here here
 #' @importFrom purrr exec map map_chr reduce
-#' @importFrom sf st_crs st_intersection st_read st_transform
+#' @importFrom sf st_crs st_intersection st_read st_transform st_union
 #' @importFrom stars read_stars
 #' @importFrom stringr str_extract str_sub str_subset
 #' @importFrom rlang .data
@@ -36,7 +36,7 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
       stop("res doit etre egal a  : \"25m\" ou \"5m\" \n\n")
    }
 
-   zoneEtude = keepOutline(zoneEtude)
+   zoneEtude = invisible(st_union(zoneEtude))
 
    # ---- Creation du dossier qui va contenir les MNTs ----
    if (!"MNT data" %in% list.files(here())){

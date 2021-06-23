@@ -11,7 +11,7 @@ importMNT(zoneEtude, res = "25m", codeDep, source = FALSE)
 
 \item{res}{resolution du raster : "25m" ou "5m"}
 
-\item{codeDep}{si non renseigne, le departement est detecte automatiquement (+ 5/10s)}
+\item{codeDep}{si non renseigne, le departement est detecte automatiquement (+ 5/10s). Attention, il faut bien verifier que les polygones en entrees soient TOUS dans le codeDep renseigne.}
 
 \item{source}{si TRUE, la fonction renvoi la source du MNT au format shp}
 }
