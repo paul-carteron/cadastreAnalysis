@@ -9,6 +9,8 @@
 #'
 #' @usage importMNT(zoneEtude, res = "25m", codeDep, source = FALSE)
 #'
+#' @details Le systeme de coordonne peut etre modifie en utilisant la fonction st_transform
+#'
 #' @importFrom dplyr filter pull
 #' @importFrom archive archive archive_extract
 #' @importFrom here here
@@ -132,8 +134,9 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
 
    cat(paste0("Le MNT a ete importe dans le systeme de coordonnees :\n",
               strsplit(st_crs(MNT)$wkt, split = "\"")[[1]][2],
-              "\nCode ",
-              codeEPSG,"\n\n"))
+              "\nCode EPSG : ",
+              gsub("[^[:digit:]]+", "", rev(strsplit(st_crs(MNT)$wkt, split = "\"")[[1]])[1]),"\n\n"))
+
 
    return(MNT)
 }

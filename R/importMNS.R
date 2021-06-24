@@ -10,7 +10,8 @@
 #' @usage importMNS(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALSE)
 #'
 #' @details La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
-#' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
+#' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes \cr
+#' Le systeme de coordonne peut etre modifie en utilisant la fonction st_transform.
 #'
 #' @importFrom dplyr filter mutate pull tibble as_tibble
 #' @importFrom R.utils cat
@@ -222,8 +223,9 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALS
 
    cat(paste0("Le MNS a ete importe dans le systeme de coordonnees :\n",
               strsplit(st_crs(MNS)$wkt, split = "\"")[[1]][2],
-              "\nCode ",
-              codeEPSG,"\n\n"))
+              "\nCode EPSG : ",
+              gsub("[^[:digit:]]+", "", rev(strsplit(st_crs(MNS)$wkt, split = "\"")[[1]])[1]),"\n\n"))
+
 
    # ---- Convertir l'objet star en objet raster ----
    if (convertAsRaster == TRUE){

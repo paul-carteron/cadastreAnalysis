@@ -21,3 +21,6 @@ renvoi le MNT de la zone etudiee ou la source de la donnee si "source" = TRUE
 \description{
 Permet de telecharger les MNT de l'IGN a la resolution 5m et 25m sur toute la France y compris les DOM-TOMs
 }
+\details{
+Le systeme de coordonne peut etre modifie en utilisant la fonction st_transform
+}
