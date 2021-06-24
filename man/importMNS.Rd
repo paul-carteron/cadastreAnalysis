@@ -4,7 +4,7 @@
 \alias{importMNS}
 \title{importMNS}
 \usage{
-importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE)
+importMNS(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALSE)
 }
 \arguments{
 \item{zoneEtude}{objet de class sf corresopndant a un unique polygone}
@@ -14,8 +14,6 @@ importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster =
 \item{codeDep}{si le numero departement n'est connu il est detecte automatiquement mais cela augmente le temps de calcul}
 
 \item{convertAsRaster}{si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars}
-
-\item{codeEPSG}{code EPSG de la projection. 4326 = WGS84, 2154 = Lambert-93}
 }
 \value{
 Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"

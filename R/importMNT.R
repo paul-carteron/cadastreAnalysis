@@ -131,9 +131,9 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
    codeEPSG = st_dimensions(MNT)$x$refsys$input
 
    cat(paste0("Le MNT a ete importe dans le systeme de coordonnees :\n",
-              sysCoord$input,
-              "\n",
-              codeEPSG,")\n\n"))
+              strsplit(st_crs(MNT)$wkt, split = "\"")[[1]][2],
+              "\nCode ",
+              codeEPSG,"\n\n"))
 
    return(MNT)
 }

@@ -7,7 +7,7 @@
 #'
 #' @description Permet de telecharger les MNS du Grand-Est.
 #'
-#' @usage importMNS(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE)
+#' @usage importMNS(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALSE)
 #'
 #' @details La fonction cree un dossier "MNS data" dans le working directory. Tous les fichiers seront telecharge a cet endroit \cr
 #' Remarque : la fonction verifie toujoours que les fichiers ne sont pas deja telecharges car les dalles MNS sont lourdes
@@ -220,10 +220,10 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALS
 
    codeEPSG = st_dimensions(MNS)$x$refsys$input
 
-   cat(paste0("Le MNT a ete importe dans le systeme de coordonnees :\n",
-              st_crs(MNS)$input,
-              "\n",
-              codeEPSG,")\n\n"))
+   cat(paste0("Le MNS a ete importe dans le systeme de coordonnees :\n",
+              strsplit(st_crs(MNS)$wkt, split = "\"")[[1]][2],
+              "\nCode ",
+              codeEPSG,"\n\n"))
 
    # ---- Convertir l'objet star en objet raster ----
    if (convertAsRaster == TRUE){
