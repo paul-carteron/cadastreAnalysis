@@ -2,7 +2,6 @@
 #'
 #' @param zoneEtude objet de class sf corresopndant a un unique polygone
 #' @param rasterRes resolution du raster de sortie en metre. La resolution minimale est de 0.2m
-#' @param codeEPSG code EPSG de la projection. 4326 = WGS84, 2154 = Lambert-93
 #' @param codeDep si le numero departement n'est connu il est detecte automatiquement mais cela augmente le temps de calcul
 #' @param convertAsRaster si TRUE, converti l'objet au format du package raster; le temps de calcul sera plus long. Sinon, l'objet sera au format du package "stars
 #'
@@ -28,7 +27,7 @@
 #' @return Renvoi un objet de class stars ou raster selon l'option choisi dans "convertAsRaster"
 #' @export
 #'
-importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, convertAsRaster = FALSE){
+importMNS <- function(zoneEtude, rasterRes = 20, codeDep, convertAsRaster = FALSE){
 
    zoneEtude <- st_transform(zoneEtude, 4326)
 
@@ -217,12 +216,14 @@ importMNS <- function(zoneEtude, rasterRes = 20, codeEPSG = 4326, codeDep, conve
    # d'utiliser les element d'une liste directement comme variable d'une
    # fonction
    MNS <- exec("st_mosaic", !!!rasters)
+   st_crs(MNS) <- st_crs(2154)
 
-   # ---- Changement de coordonnees du raster ----
-   if (!missing(codeEPSG)){
-      attr(MNS, "dimensions")$x$refsys <- st_crs(codeEPSG)
-      attr(MNS, "dimensions")$y$refsys <- st_crs(codeEPSG)
-   }
+   codeEPSG = st_dimensions(MNS)$x$refsys$input
+
+   cat(paste0("Le MNT a ete importe dans le systeme de coordonnees :\n",
+              st_crs(MNS)$input,
+              "\n",
+              codeEPSG,")\n\n"))
 
    # ---- Convertir l'objet star en objet raster ----
    if (convertAsRaster == TRUE){

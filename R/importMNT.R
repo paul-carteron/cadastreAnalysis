@@ -14,7 +14,7 @@
 #' @importFrom here here
 #' @importFrom purrr exec map map_chr reduce
 #' @importFrom sf st_crs st_intersection st_read st_transform st_union
-#' @importFrom stars read_stars
+#' @importFrom stars read_stars st_dimensions
 #' @importFrom stringr str_extract str_sub str_subset
 #' @importFrom rlang .data
 #'
@@ -126,16 +126,13 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
 
    MNT = exec("st_mosaic", !!!dallesLoad)
 
-   attr(MNT, "dimensions")$x$refsys <- sysCoord
-   attr(MNT, "dimensions")$y$refsys <- sysCoord
+   st_crs(MNT) <- sysCoord
 
-   codeEPSG = strsplit(sysCoord$wkt,split = ",")
-   codeEPSG = codeEPSG[[1]][length(codeEPSG[[1]])]
-   codeEPSG = substr(codeEPSG, start = 1, stop = nchar(codeEPSG)-2)
+   codeEPSG = st_dimensions(MNT)$x$refsys$input
 
    cat(paste0("Le MNT a ete importe dans le systeme de coordonnees :\n",
               sysCoord$input,
-              "\n(code EPSG : ",
+              "\n",
               codeEPSG,")\n\n"))
 
    return(MNT)
