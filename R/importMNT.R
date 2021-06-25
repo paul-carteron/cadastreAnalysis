@@ -30,8 +30,8 @@ importMNT = function(zoneEtude, res = "25m", codeDep, source = FALSE){
       stop("La zone d'etude n'a pas ete renseigne dans la fonction \n\n")
    }
 
-   if (!class(zoneEtude)[1] %in% "sf"){
-      stop("La zone d'etude doit etre un objet de class \"sf\" \n\n")
+   if (sum(class(zoneEtude) %in% c("sf", "sfc")) == 0){
+      stop("La zone d'etude doit etre un objet de class \"sf\" ou  \"sfc\" \n\n")
    }
 
    if (!res %in% c("25m","5m")){
