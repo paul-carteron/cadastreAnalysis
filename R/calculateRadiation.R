@@ -54,8 +54,8 @@ calculateRadiation = function(MNT, zoneEtude, date = as.Date("2019-06-20")){
       Iglobal = Iglobal + (Idirdif[,1] * hsh + Idirdif[,2] )*3600*deltat
    }
    ## rasterize to plot nicely
-   Iglobal = raster(Iglobal,crs=projection(MNT))
-   extent(Iglobal) = extent(MNT)
+   Iglobal = raster(Iglobal,crs = raster::projection(MNT))
+   raster::extent(Iglobal) = raster::extent(MNT)
 
    return(Iglobal*1e-6)
 }

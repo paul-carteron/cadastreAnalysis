@@ -20,7 +20,7 @@ selectID <- function(zoneEtude, mapBackground = "OpenStreetMap") {
       stop("L'argument mapBackground n'est pas rempli. Choisir : \"OpenStreetMap\" , \"Scan25\" ou \"Ortho")
    }
 
-   assign("idZone", data.frame(), envir = .GlobalEnv)
+   idZone <- NULL
 
    centre = zoneEtude %>%
       st_centroid()

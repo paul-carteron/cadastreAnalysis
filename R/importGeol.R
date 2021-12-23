@@ -12,6 +12,8 @@
 #'
 importGeol = function(zoneEtude){
 
+   commune <- NULL
+
    codeDep = zoneEtude %>%
       pull(commune) %>%
       unique() %>%

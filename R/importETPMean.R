@@ -20,6 +20,8 @@ importETPMean <- function(zoneEtude, firstDate = stop("Choisir une date de depar
       stop("firstdate doit etre au format character")
    }
 
+   value <- NULL
+
    zoneEtude = st_transform(zoneEtude,4326)
 
    # Permet de trouver le centre de la zoneEtude
